@@ -10,6 +10,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ArchiverIngestion dataIngestionObj = new ArchiverIngestion();
         dataIngestionObj.archiveFolderFile();
-        System.out.println("Hello world!");
+        System.out.println("File successfully processed");
     }
 }

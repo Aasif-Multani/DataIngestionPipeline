@@ -3,10 +3,12 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class main_test {
     @Test
@@ -22,7 +24,16 @@ public class main_test {
         archiver.archiveFolderFile();
 
         // Assert that the file has been moved to the archive directory
-        File archiveFile = new File("archive/" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "/processed/sample_file_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) + ".csv");
-        assertTrue(archiveFile.exists());
+        String archiveFilePath = "archive/" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "/processed/sample_file_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) + ".csv";
+        File archiveFile = new File(archiveFilePath);
+        assertTrue("Archive file does not exist: " + archiveFilePath, archiveFile.exists());
+
+        // Assert that the file is no longer present in the landing directory
+        assertFalse("Landing file still exists", landingFile.exists());
+
+        // Assert that the file has the correct content
+        String expectedContent = "test content";
+        String actualContent = Files.readString(archiveFile.toPath(), StandardCharsets.UTF_8);
+        assertEquals("File content does not match", expectedContent, actualContent);
     }
 }
