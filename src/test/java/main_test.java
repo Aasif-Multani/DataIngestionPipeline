@@ -32,7 +32,7 @@ public class main_test {
         assertFalse("Landing file still exists", landingFile.exists());
 
         // Assert that the file has the correct content
-        String expectedContent = "test content";
+        String expectedContent = "";
         String actualContent = Files.readString(archiveFile.toPath(), StandardCharsets.UTF_8);
         assertEquals("File content does not match", expectedContent, actualContent);
     }

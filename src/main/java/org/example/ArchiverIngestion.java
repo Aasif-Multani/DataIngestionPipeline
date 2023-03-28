@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class ArchiverIngestion {
     // Declare instance variables
     private String landingLoc;
@@ -52,5 +56,16 @@ public class ArchiverIngestion {
         File archiveFile = new File(archiveFolderPath);
         File landingFile = new File(landingLocPath);
         landingFile.renameTo(archiveFile);
+    }
+
+    public void cleanUpArchiveFolder() throws IOException {
+        // Get the archive directory path
+        String archiveFolderPath = archiveFolder;
+
+        // Delete all the files and directories in the archive directory
+        Files.walk(Paths.get(archiveFolderPath))
+                .sorted((a, b) -> b.compareTo(a))
+                .map(Path::toFile)
+                .forEach(File::delete);
     }
 }
