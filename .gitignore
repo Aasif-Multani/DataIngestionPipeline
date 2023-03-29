@@ -1,2 +1,15 @@
-# Project exclude paths
-/target/
+*.swp
+.vscode/
+.idea/
+__pycache__/
+__MACOSX/
+.DS_Store
+config/__pycache__/
+data_access/__pycache__/
+service/__pycache__/
+utils/__pycache__/
+notebooks/
+logs/
+venv/
+data/
+endpoints.ipynb
